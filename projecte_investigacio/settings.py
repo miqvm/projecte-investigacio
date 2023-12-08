@@ -1,6 +1,6 @@
 from kaio import Options
 from pathlib import Path
-
+import os
 
 opts = Options()
 
@@ -63,8 +63,6 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "projecte_investigacio.wsgi.application"
-
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
@@ -80,6 +78,7 @@ if opts.get("ENVIROMENT", "DEVELOP") == "PROD":
             "HOST": opts.get("DATABASE_HOST"),
         }
     }
+    WSGI_APPLICATION = "projecte_investigacio.wsgi.application"
 else:
     DATABASES = {
         "default": {
@@ -129,7 +128,7 @@ USE_TZ = True
 
 
 STATIC_URL = "/static/"
-STATIC_ROOT = BASE_DIR / "static"
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

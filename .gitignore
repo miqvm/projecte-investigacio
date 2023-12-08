@@ -322,7 +322,3 @@ $RECYCLE.BIN/
 /thumbor.env
 /uwsgi.env
 /backup.env
-
-# Pipfile
-Pipfile
-Pipfile.lock
