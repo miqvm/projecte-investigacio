@@ -24,6 +24,9 @@ ALLOWED_HOSTS = ["miqvm.pythonanywhere.com", "127.0.0.1", "localhost"]
 # Application definition
 
 INSTALLED_APPS = [
+    "main",
+    "items",
+    "people",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -115,7 +118,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = "Europe/Madrid"
 
 USE_I18N = True
 
