@@ -1,0 +1,80 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bienvenida a Mi Página Rosada</title>
+    <style>
+        body {
+            background-color: #fce4ec; /* Color de fondo rosa claro */
+            font-family: 'Comic Sans MS', cursive;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        #imagenContenedor {
+            width: 70%;
+            max-width: 400px; /* Establecer un ancho máximo para la imagen */
+            margin-bottom: 20px;
+        }
+
+        #imagenArriba {
+            width: 100%;
+            height: auto; /* Altura automática proporcional al ancho */
+            border-radius: 45%; /* Añadir bordes redondeados */
+        }
+
+        #contenido {
+            padding: 20px;
+            background-color: #fff; /* Fondo blanco para el contenido */
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra suave alrededor del contenido */
+            max-width: 50%;
+        }
+
+        h1 {
+            color: #e91e63; /* Color rosa oscuro para el texto */
+        }
+
+        #botonEnlace {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #ff4081; /* Color del botón rosa */
+            color: #fff; /* Color del texto blanco */
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+
+        #botonEnlace:hover {
+            background-color: #c51162; /* Cambio de color al pasar el ratón sobre el botón */
+        }
+    </style>
+</head>
+<body>
+
+    <div id="imagenContenedor">
+        <img id="imagenArriba" src="https://i.pinimg.com/originals/33/a1/ff/33a1ff383df886c86b7df0ed5569f5b6.jpg" alt="Imagen Rosada">
+    </div>
+    
+    <div id="contenido">
+        <h1>Benvinguda cuqi!</h1>
+        <p>Esper que puguis donar-li us a aquesta aplicació que t'he fet i t'ajudi tot lo posible. Tens a nes cuqi a sa teva disposició per qualsevol modificació que se necessiti.</p>
+        <p>T'estim.</p>
+        
+        <!-- Botón con enlace -->
+        <a id="botonEnlace" href="{% url 'admin:index' %}">Ir a otro lugar</a>
+    </div>
+
+</body>
+</html>
+
+
