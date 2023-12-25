@@ -12,7 +12,9 @@ class Person(models.Model):
 
     @property
     def fullname(self):
-        return f"{self.name} {self.surnames}"
+        if self.surnames:
+            return f"{self.name} {self.surnames}"
+        return self.name
 
 
 class Contact(Person):
