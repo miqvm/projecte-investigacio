@@ -1,10 +1,11 @@
 from django.contrib import admin
+from people.forms import AuthorAdminForm, ContactAdminForm
 from people.models import Contact, ContactTag, Author, AuthorGroup
 
 
 @admin.register(Contact)
 class ContactAdmin(admin.ModelAdmin):
-    pass
+    form = ContactAdminForm
 
 
 @admin.register(ContactTag)
@@ -14,7 +15,7 @@ class ContactTagAdmin(admin.ModelAdmin):
 
 @admin.register(Author)
 class AuthorAdmin(admin.ModelAdmin):
-    pass
+    form = AuthorAdminForm
 
 
 @admin.register(AuthorGroup)
