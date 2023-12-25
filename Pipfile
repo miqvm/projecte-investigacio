@@ -9,6 +9,8 @@ django-kaio = "~=1.5.0"
 django-extensions = ">=3.2"
 psycopg2 = "*"
 mysqlclient = "*"
+l = "*"
+django-autocomplete-light = "*"
 
 [dev-packages]
 
