@@ -1,7 +1,7 @@
 from dal import autocomplete
 from django import forms
 
-from people.models import Contact, Author
+from people.models import Contact, DirectSourceAuthor
 
 
 class ContactAdminForm(forms.ModelForm):
@@ -13,10 +13,12 @@ class ContactAdminForm(forms.ModelForm):
         }
 
 
-class AuthorAdminForm(forms.ModelForm):
+class DirectSourceAuthorAdminForm(forms.ModelForm):
     class Meta:
-        model = Author
+        model = DirectSourceAuthor
         fields = "__all__"
         widgets = {
-            "groups": autocomplete.ModelSelect2Multiple(url="autocomplete-authorgroup"),
+            "collectives": autocomplete.ModelSelect2Multiple(
+                url="autocomplete-collective"
+            ),
         }

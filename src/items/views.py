@@ -1,6 +1,6 @@
 from dal import autocomplete
 
-from items.models import Category
+from items.models import Category, DirectSource, KeyWord, Location
 
 
 class BasePublicationAutocomplete(autocomplete.Select2QuerySetView):
@@ -22,4 +22,19 @@ class BasePublicationAutocomplete(autocomplete.Select2QuerySetView):
 
 class CategoryAutocomplete(BasePublicationAutocomplete):
     model = Category
+    model_field_name = "name"
+
+
+class KeyWordAutocomplete(BasePublicationAutocomplete):
+    model = KeyWord
+    model_field_name = "name"
+
+
+class DirectSourceAutocomplete(BasePublicationAutocomplete):
+    model = DirectSource
+    model_field_name = "title"
+
+
+class LocationAutocomplete(BasePublicationAutocomplete):
+    model = Location
     model_field_name = "name"

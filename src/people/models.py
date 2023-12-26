@@ -16,6 +16,9 @@ class Person(models.Model):
             return f"{self.name} {self.surnames}"
         return self.name
 
+    def __str__(self):
+        return self.fullname
+
 
 class Contact(Person):
     phone = models.CharField(
@@ -35,22 +38,26 @@ class Contact(Person):
     tags = models.ManyToManyField(
         "people.ContactTag", verbose_name="Etiquetes", blank=True
     )
+    pending_arrange = models.BooleanField(verbose_name="Pendent de concertar")
+    visit_days = models.ManyToManyField(
+        "people.VisitDay", verbose_name="Dies de visita", blank=True
+    )
+    position = models.CharField(
+        verbose_name="Càrrec", max_length=50, null=True, blank=True
+    )
 
     class Meta:
         verbose_name = "Contacte"
         verbose_name_plural = "Contactes"
         ordering = ["name"]
 
-    def __str__(self):
-        return self.name
-
 
 class ContactTag(models.Model):
     name = models.CharField(verbose_name="Nom", max_length=70)
 
     class Meta:
-        verbose_name = "Tag de contacte"
-        verbose_name_plural = "Tags de contactes"
+        verbose_name = "Etiqueta de contacte"
+        verbose_name_plural = "Etiquetes de contactes"
         ordering = ["name"]
 
     def __str__(self):
@@ -60,29 +67,51 @@ class ContactTag(models.Model):
 class Author(Person):
     birth_date = models.DateField(verbose_name="Data naixement", null=True, blank=True)
     death_date = models.DateField(verbose_name="Data defunció", null=True, blank=True)
-    groups = models.ManyToManyField(
-        "people.AuthorGroup", verbose_name="Grups", blank=True
+
+    class Meta:
+        abstract = True
+        ordering = ["name"]
+
+
+class DirectSourceAuthor(Author):
+    collectives = models.ManyToManyField(
+        "people.Collective", verbose_name="Col·lectius", blank=True
     )
 
     class Meta:
-        verbose_name = "Autor"
-        verbose_name_plural = "Autors"
-        ordering = ["name"]
-
-    def __str__(self):
-        return self.name
+        verbose_name = "Autor font directa"
+        verbose_name_plural = "Autors fonts directes"
 
 
-class AuthorGroup(models.Model):
+class BibliographicResourceAuthor(Author):
+    class Meta:
+        verbose_name = "Autor recurs bibliogràfic"
+        verbose_name_plural = "Autors recursos bibliogràfics"
+
+
+class Collective(models.Model):
     name = models.CharField(verbose_name="Nom", max_length=50)
     description = models.TextField(verbose_name="Descripció", null=True, blank=True)
     start_date = models.DateField(verbose_name="Data inici", null=True, blank=True)
     end_date = models.DateField(verbose_name="Data final", null=True, blank=True)
 
     class Meta:
-        verbose_name = "Grup d'autors"
-        verbose_name_plural = "Grups d'autors"
+        verbose_name = "Col·lectiu d'autors"
+        verbose_name_plural = "Col·lectius d'autors"
         ordering = ["name"]
 
     def __str__(self):
         return self.name
+
+
+class VisitDay(models.Model):
+    date = models.DateTimeField(verbose_name="Dia i hora de visita")
+    notes = models.TextField(verbose_name="Notes", null=True, blank=True)
+
+    class Meta:
+        verbose_name = "Dia de visita"
+        verbose_name_plural = "Dies de visita"
+        ordering = ["date"]
+
+    def __str__(self):
+        return self.date.strftime(format="%d/%m/%Y")
