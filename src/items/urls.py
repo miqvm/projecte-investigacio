@@ -1,6 +1,7 @@
 from django.urls import path
 
 from items.views import (
+    BibliographicResourceAutocomplete,
     CategoryAutocomplete,
     KeyWordAutocomplete,
     DirectSourceAutocomplete,
@@ -27,5 +28,10 @@ urlpatterns = [
         "autocomplete/location",
         LocationAutocomplete.as_view(),
         name="autocomplete-location",
+    ),
+    path(
+        "autocomplete/bibliographicresource",
+        BibliographicResourceAutocomplete.as_view(),
+        name="autocomplete-bibliographicresource",
     ),
 ]

@@ -22,3 +22,14 @@ class DirectSourceAuthorAdminForm(forms.ModelForm):
                 url="autocomplete-collective"
             ),
         }
+
+
+class DirectSourceAuthorInlineForm(forms.ModelForm):
+    class Meta:
+        model = DirectSourceAuthor.collectives.through
+        fields = "__all__"
+        widgets = {
+            "directsourceauthor": autocomplete.ModelSelect2(
+                url="autocomplete-directsourceauthor"
+            ),
+        }

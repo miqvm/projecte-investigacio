@@ -1,5 +1,9 @@
 from django.contrib import admin
-from people.forms import DirectSourceAuthorAdminForm, ContactAdminForm
+from people.forms import (
+    DirectSourceAuthorAdminForm,
+    ContactAdminForm,
+    DirectSourceAuthorInlineForm,
+)
 from people.models import (
     Contact,
     ContactTag,
@@ -13,12 +17,6 @@ from people.models import (
 @admin.register(ContactTag)
 class ContactTagAdmin(admin.ModelAdmin):
     search_fields = ("name",)
-
-
-@admin.register(Collective)
-class CollectiveAdmin(admin.ModelAdmin):
-    search_fields = ("name",)
-    list_display = ("name", "start_date", "end_date")
 
 
 @admin.register(DirectSourceAuthor)
@@ -62,6 +60,7 @@ class VisitDayAdminInlineAdmin(admin.TabularInline):
     classes = ("module aligned",)
     raw_id_fields = ("visitday",)
     fields = ("visitday", "visitday_notes")
+    verbose_name_plural = "Dies de visita"
 
     def visitday_notes(self, obj):
         return obj.visitday.notes
@@ -103,3 +102,19 @@ class ContactAdmin(admin.ModelAdmin):
         return "-"
 
     get_tags.short_description = "Etiquetes"
+
+
+class DirectSourceAuthorInline(admin.TabularInline):
+    model = DirectSourceAuthor.collectives.through
+    extra = 1
+    classes = ("module aligned",)
+    form = DirectSourceAuthorInlineForm
+    verbose_name_plural = "Autors"
+
+
+#    fields = ("visitday", "visitday_notes")
+@admin.register(Collective)
+class CollectiveAdmin(admin.ModelAdmin):
+    search_fields = ("name",)
+    list_display = ("name", "start_date", "end_date")
+    inlines = (DirectSourceAuthorInline,)

@@ -1,6 +1,12 @@
 from dal import autocomplete
 
-from items.models import Category, DirectSource, KeyWord, Location
+from items.models import (
+    BibliographicResource,
+    Category,
+    DirectSource,
+    KeyWord,
+    Location,
+)
 
 
 class BasePublicationAutocomplete(autocomplete.Select2QuerySetView):
@@ -38,3 +44,8 @@ class DirectSourceAutocomplete(BasePublicationAutocomplete):
 class LocationAutocomplete(BasePublicationAutocomplete):
     model = Location
     model_field_name = "name"
+
+
+class BibliographicResourceAutocomplete(BasePublicationAutocomplete):
+    model = BibliographicResource
+    model_field_name = "title"

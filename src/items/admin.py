@@ -1,5 +1,9 @@
 from django.contrib import admin
-from items.forms import DirectSourceAdminForm, BibliographicResourceAdminForm
+from items.forms import (
+    BibliographicResourceInlineForm,
+    DirectSourceAdminForm,
+    BibliographicResourceAdminForm,
+)
 from items.models import (
     Location,
     Category,
@@ -98,6 +102,7 @@ class ConsultationDateAdminInlineAdmin(admin.TabularInline):
     classes = ("module aligned",)
     raw_id_fields = ("consultationdate",)
     fields = ("consultationdate", "consultationdate_notes")
+    verbose_name_plural = "Dates de consulta"
 
     def consultationdate_notes(self, obj):
         return obj.consultationdate.notes
@@ -114,6 +119,7 @@ class AuxPhotosAdminInlineAdmin(admin.TabularInline):
     classes = ("module aligned",)
     raw_id_fields = ("image",)
     fields = ("image", "image_thumb")
+    verbose_name_plural = "Fotos auxiliars"
 
     def image_thumb(self, obj):
         return format_html(
@@ -126,10 +132,22 @@ class AuxPhotosAdminInlineAdmin(admin.TabularInline):
         return ("image_thumb",) + super().get_readonly_fields(request, obj)
 
 
+class BibliographicResourceInlineAdmin(admin.TabularInline):
+    model = BibliographicResource.direct_sources.through
+    extra = 1
+    classes = ("module aligned",)
+    verbose_name_plural = "Recursos Bibliogràfics"
+    form = BibliographicResourceInlineForm
+
+
 @admin.register(DirectSource)
 class DirectSourceAdmin(admin.ModelAdmin):
     form = DirectSourceAdminForm
-    inlines = (AuxPhotosAdminInlineAdmin, ConsultationDateAdminInlineAdmin)
+    inlines = (
+        AuxPhotosAdminInlineAdmin,
+        ConsultationDateAdminInlineAdmin,
+        BibliographicResourceInlineAdmin,
+    )
     fields = [
         "title",
         "date",

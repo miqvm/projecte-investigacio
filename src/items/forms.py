@@ -36,3 +36,14 @@ class BibliographicResourceAdminForm(forms.ModelForm):
                 url="autocomplete-directsource"
             ),
         }
+
+
+class BibliographicResourceInlineForm(forms.ModelForm):
+    class Meta:
+        model = BibliographicResource.direct_sources.through
+        fields = "__all__"
+        widgets = {
+            "bibliographicresource": autocomplete.ModelSelect2(
+                url="autocomplete-bibliographicresource"
+            ),
+        }
