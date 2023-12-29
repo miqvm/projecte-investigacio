@@ -154,6 +154,7 @@ class DirectSourceAdmin(admin.ModelAdmin):
         "location",
         "collective",
         "works_nature",
+        "materials",
         "origin",
         "thematic",
         "critical_component",

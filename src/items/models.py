@@ -142,6 +142,9 @@ class DirectSource(models.Model):
     consultation_dates = models.ManyToManyField(
         "items.ConsultationDate", verbose_name="Dates de consulta", blank=True
     )
+    materials = models.ManyToManyField(
+        "items.Material", verbose_name="Material", blank=True
+    )
 
     class Meta:
         verbose_name = "Font directa"

@@ -6,6 +6,7 @@ from items.views import (
     KeyWordAutocomplete,
     DirectSourceAutocomplete,
     LocationAutocomplete,
+    MaterialAutocomplete,
 )
 
 urlpatterns = [
@@ -33,5 +34,10 @@ urlpatterns = [
         "autocomplete/bibliographicresource",
         BibliographicResourceAutocomplete.as_view(),
         name="autocomplete-bibliographicresource",
+    ),
+    path(
+        "autocomplete/material",
+        MaterialAutocomplete.as_view(),
+        name="autocomplete-material",
     ),
 ]

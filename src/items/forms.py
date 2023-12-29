@@ -17,6 +17,7 @@ class DirectSourceAdminForm(forms.ModelForm):
             ),
             "location": autocomplete.ModelSelect2(url="autocomplete-location"),
             "collective": autocomplete.ModelSelect2(url="autocomplete-collective"),
+            "materials": autocomplete.ModelSelect2Multiple(url="autocomplete-material"),
         }
 
 

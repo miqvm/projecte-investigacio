@@ -6,6 +6,7 @@ from items.models import (
     DirectSource,
     KeyWord,
     Location,
+    Material,
 )
 
 
@@ -49,3 +50,8 @@ class LocationAutocomplete(BasePublicationAutocomplete):
 class BibliographicResourceAutocomplete(BasePublicationAutocomplete):
     model = BibliographicResource
     model_field_name = "title"
+
+
+class MaterialAutocomplete(BasePublicationAutocomplete):
+    model = Material
+    model_field_name = "name"
