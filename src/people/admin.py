@@ -1,4 +1,5 @@
 from django.contrib import admin
+from items.models import BibliographicResource, DirectSource
 from people.forms import (
     DirectSourceAuthorAdminForm,
     ContactAdminForm,
@@ -19,6 +20,19 @@ class ContactTagAdmin(admin.ModelAdmin):
     search_fields = ("name",)
 
 
+class DirectSourceAdminInlineAdmin(admin.TabularInline):
+    model = DirectSource.authors.through
+    extra = 0
+    classes = ("module aligned",)
+    raw_id_fields = ("directsource",)
+    fields = ("directsource",)
+    verbose_name_plural = "Obres"
+    verbose_name = "Obres"
+    readonly_fields = ("directsource",)
+    can_delete = False
+    max_num = 0
+
+
 @admin.register(DirectSourceAuthor)
 class DirectSourceAuthorAdmin(admin.ModelAdmin):
     form = DirectSourceAuthorAdminForm
@@ -28,6 +42,7 @@ class DirectSourceAuthorAdmin(admin.ModelAdmin):
     )
     list_filter = ("collectives",)
     list_display = ("name", "surnames", "get_collectives")
+    inlines = [DirectSourceAdminInlineAdmin]
 
     def get_collectives(self, obj):
         if obj.collectives.all().exists():
@@ -35,6 +50,19 @@ class DirectSourceAuthorAdmin(admin.ModelAdmin):
         return "-"
 
     get_collectives.short_description = "Col·lectius"
+
+
+class BibliographicResourceAdminInlineAdmin(admin.TabularInline):
+    model = BibliographicResource.authors.through
+    extra = 0
+    classes = ("module aligned",)
+    raw_id_fields = ("bibliographicresource",)
+    fields = ("bibliographicresource",)
+    verbose_name_plural = "Obres"
+    verbose_name = "Obres"
+    readonly_fields = ("bibliographicresource",)
+    can_delete = False
+    max_num = 0
 
 
 @admin.register(BibliographicResourceAuthor)
@@ -47,6 +75,7 @@ class BibliographicResourceAuthorAdmin(admin.ModelAdmin):
         "name",
         "surnames",
     )
+    inlines = [BibliographicResourceAdminInlineAdmin]
 
 
 @admin.register(VisitDay)
