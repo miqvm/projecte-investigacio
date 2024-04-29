@@ -11,7 +11,6 @@ from people.models import (
     DirectSourceAuthor,
     BibliographicResourceAuthor,
     Collective,
-    VisitDay,
 )
 
 
@@ -78,32 +77,9 @@ class BibliographicResourceAuthorAdmin(admin.ModelAdmin):
     inlines = [BibliographicResourceAdminInlineAdmin]
 
 
-@admin.register(VisitDay)
-class VisitDayAdmin(admin.ModelAdmin):
-    pass
-
-
-class VisitDayAdminInlineAdmin(admin.TabularInline):
-    model = Contact.visit_days.through
-    extra = 1
-    classes = ("module aligned",)
-    raw_id_fields = ("visitday",)
-    fields = ("visitday", "visitday_notes")
-    verbose_name_plural = "Dies de visita"
-
-    def visitday_notes(self, obj):
-        return obj.visitday.notes
-
-    visitday_notes.short_description = "Notes"
-
-    def get_readonly_fields(self, request, obj=None):
-        return ("visitday_notes",) + super().get_readonly_fields(request, obj)
-
-
 @admin.register(Contact)
 class ContactAdmin(admin.ModelAdmin):
     form = ContactAdminForm
-    inlines = (VisitDayAdminInlineAdmin,)
     exclude = ["visit_days"]
 
     search_fields = (
@@ -141,7 +117,6 @@ class DirectSourceAuthorInline(admin.TabularInline):
     verbose_name_plural = "Autors"
 
 
-#    fields = ("visitday", "visitday_notes")
 @admin.register(Collective)
 class CollectiveAdmin(admin.ModelAdmin):
     search_fields = ("name",)
