@@ -39,9 +39,6 @@ class Contact(Person):
         "people.ContactTag", verbose_name="Etiquetes", blank=True
     )
     pending_arrange = models.BooleanField(verbose_name="Pendent de concertar")
-    visit_days = models.ManyToManyField(
-        "people.VisitDay", verbose_name="Dies de visita", blank=True
-    )
     position = models.CharField(
         verbose_name="Càrrec", max_length=50, null=True, blank=True
     )
@@ -102,16 +99,3 @@ class Collective(models.Model):
 
     def __str__(self):
         return self.name
-
-
-class VisitDay(models.Model):
-    date = models.DateTimeField(verbose_name="Dia i hora de visita")
-    notes = models.TextField(verbose_name="Notes", null=True, blank=True)
-
-    class Meta:
-        verbose_name = "Dia de visita"
-        verbose_name_plural = "Dies de visita"
-        ordering = ["date"]
-
-    def __str__(self):
-        return self.date.strftime(format="%d/%m/%Y")
