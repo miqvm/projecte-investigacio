@@ -55,6 +55,7 @@ class Material(models.Model):
 
 class BibliographicResource(models.Model):
     title = models.CharField(verbose_name="Títol", max_length=150)
+    description = models.TextField(verbose_name="Descripció", null=True, blank=True)
     authors = models.ManyToManyField(
         "people.BibliographicResourceAuthor", verbose_name="Autors", blank=True
     )
